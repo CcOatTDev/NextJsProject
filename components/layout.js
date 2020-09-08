@@ -28,11 +28,13 @@ function Layout({children, home}){
           <header className={styles.header}>
             {home ? (
               <>
+                <Link href="/posts/first-post" >
                 <img
                   src="/images/profile.jpg"
                   className={`${styles.headerHomeImage} ${utilStyles.borderCircle}`}
                   alt={name}
                 />
+                </Link>
                 <h1 className={utilStyles.heading2Xl}>{name}</h1>
               </>
             ) : (

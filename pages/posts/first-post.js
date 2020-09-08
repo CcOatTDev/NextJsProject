@@ -3,18 +3,19 @@ import Head from "next/head"
 import Layout from "../../components/layout"
 
 export default function FirstPost() {
-  return (
+   return (
       <Layout>
          <Head>
             <title>First Post</title>
          </Head>
 
-         <h1>First Post</h1>
-         <h2>
-         <Link href="/">
-            <a>Back to home</a>
+         <Link href="/posts/[id]" as="/posts/ssg-ssr">
+            <a>First Post</a>
          </Link>
-         </h2>
-      </Layout>    
+         <br/>
+         <Link href="/posts/[id]" as="/posts/pre-rendering">
+            <a>Secound Post</a>
+         </Link>
+      </Layout>
    )
 }
