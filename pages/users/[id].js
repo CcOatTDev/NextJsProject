@@ -1,27 +1,26 @@
 import Layout from "../../components/layout"
-import { getAllPostIds, getPostData } from '../../lib/posts'
+import { getAllUsersDataByID, getAllUsersDataToPage } from '../../lib/users'
 import Head from "next/head";
 import Date from "../../components/date"
 import utilStyles from '../../styles/utils.module.css'
 
-export default function Post({ postData }) {
+export default function Post({ userData }) {
     return (
         <Layout>
             <Head>
-                <title>{postData.title}</title>
+                <title>{userData.name}</title>
             </Head>
             <article>
-                <Date dateString={postData.date} />
                 <br />
-                <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+                <h1 className={utilStyles.headingXl}>{userData.name}</h1>
                 <br />
-                {postData.id}
+                {userData.username} {userData.email}
                 <br />
                 <div className={utilStyles.lightText}>
-                    <Date dateString={postData.date} />
+                    {userData.address.street} {userData.address.suite} {userData.address.city}
                 </div>
                 <br />
-                <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+
             </article>
         </Layout>
     )
@@ -29,8 +28,9 @@ export default function Post({ postData }) {
 
 export async function getStaticPaths() {
     // Return a list of possible value for id
-    const paths = getAllPostIds()
+    const paths = await getAllUsersDataToPage()
 
+   // console.log(paths)
     return {
         paths,
         fallback: false
@@ -39,11 +39,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
     // Fetch necessary data for the blog post using params.id
-    const postData = await getPostData(params.id)
-
+    const userData = await getAllUsersDataByID(params.id)
+    //console.log(userData)
     return {
         props: {
-            postData
+            userData
         }
     }
 }
